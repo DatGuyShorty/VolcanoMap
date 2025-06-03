@@ -53,7 +53,7 @@ fg1 = folium.FeatureGroup(name="Low Volcanoes")
 fg2 = folium.FeatureGroup(name="Medium Volcanoes")
 fg3 = folium.FeatureGroup(name="High Volcanoes")
 #variables
-data = pandas.read_csv(r"C:\Users\darkk\Desktop\VolcanoMap-main\Volcanoes.txt")
+data = pandas.read_csv("Volcanoes.txt")
 lat = list(data["LAT"])
 lon = list(data["LON"])
 name = list(data["NAME"])
