@@ -29,7 +29,7 @@ def get_volcano_image_html(volcano_name):
     
     res = requests.get(wiki_url, headers=headers)
     soup =  BeautifulSoup(res.text, "html.parser")
-    print("Wiki link: ", wiki_url)
+    #print("Wiki link: ", wiki_url) # prints wiki link 
         # Look for the infobox table
     infobox = soup.find("table", class_="infobox")
     if infobox is None:
@@ -62,19 +62,17 @@ vtype = list(data["TYPE"])
 status = list(data["STATUS"])
 
 total_entries = len(lat)
-print("Num. volcanoes to process: ", total_entries)
+print("Num. volcanoes to process: ",total_entries)
 
 #for each entry in zip() add marker to the fg group
 for i, (lt, ln, nm, el, tp, st) in enumerate(zip(lat, lon, name, elev, vtype, status), start=1):
-    print("\033c")
-    # Print volcano name
-    print("Volcano name: ", nm)
-    # Print img link or error
+
     img_src = get_volcano_image_html(nm)
-    print("Img link: ", img_src)
-    #Print progress
     progress = (i / total_entries) * 100
-    print(f"Progress: {progress:.2f}%")
+    print("\033c")  # clear terminal
+    print("Currently processing: ", nm) # Print volcano name
+    print(i, "/", total_entries,"processed.",f"{progress:.2f}% done.") #Print progress
+    # print("Img link: ", img_src) #Print img link
 
     #create iframe with html
     iframe = folium.IFrame(html=html % (nm, nm, nm, nm, img_src, el, tp, st), width=400, height=600)
@@ -89,7 +87,9 @@ for i, (lt, ln, nm, el, tp, st) in enumerate(zip(lat, lon, name, elev, vtype, st
     elif 3000 <= el:  #Red markers
         fg3.add_child(folium.Marker(location=[lt, ln], popup=folium.Popup(
             iframe), icon=folium.Icon(color=color_producer(el),))) 
-        
+    
+print("\033c")  # clear terminal
+print(i, "/", total_entries,"processed.",f"{progress:.2f}% done.") #Print progress
 #add_child to map
 map.add_child(fg1) #add low volcanoes feature group
 map.add_child(fg2) #add medium volcanoes feature group
@@ -98,6 +98,9 @@ map.add_child(fg3) #add high volcanoes feature group
 minimap = plugins.MiniMap()
 map.add_child(minimap)
 map.add_child(folium.LayerControl()) 
+
 #save the map
-map.save("map1.html")
-input() 
+map_name = "volcano_map.html"
+map.save(map_name)
+print("Processing finished!")
+print("Map saved as:",map_name)
