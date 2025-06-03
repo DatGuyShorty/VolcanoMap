@@ -104,3 +104,4 @@ map_name = "volcano_map.html"
 map.save(map_name)
 print("Processing finished!")
 print("Map saved as:",map_name)
+input("Finished! Press enter to close...")
