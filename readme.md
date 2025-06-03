@@ -4,7 +4,7 @@ This project visualizes volcanoes on an interactive map using Python and Folium.
 
 ## Overview
 
-The main script, [`generate_map.py`](generate_map.py), reads volcano data from a CSV file (`Volcanoes.txt`) and generates an interactive HTML map (`map1.html`). Each volcano is represented by a marker colored by elevation, with a popup showing its name, links, and an image (if available) from Wikipedia.
+The main script, [`generate_map.py`](generate_map.py), reads volcano data from a CSV file (`Volcanoes.txt`) and generates an interactive HTML map (`volcano_map.html`). Each volcano is represented by a marker colored by elevation, with a popup showing its name, links, and an image (if available) from Wikipedia.
 
 ## Features
 
